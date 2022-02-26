@@ -1,0 +1,210 @@
+<web-app version="4.0"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+    
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>server</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+        <param-value>-1</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>javax.faces.FACELETS_BUFFER_SIZE</param-name>
+        <param-value>65535</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>javax.faces.DISABLE_FACESSERVLET_TO_XHTML</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>javax.faces.ENABLE_CDI_RESOLVER_CHAIN</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>javax.faces.SERIALIZE_SERVER_STATE</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>javax.faces.validator.ENABLE_VALIDATE_WHOLE_BEAN</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>primefaces.CSP</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>primefaces.CLIENT_SIDE_VALIDATION</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>primefaces.MOVE_SCRIPTS_TO_BOTTOM</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>primefaces.SUBMIT</param-name>
+        <param-value>partial</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>omega</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>org.omnifaces.COMBINED_RESOURCE_HANDLER_CACHE_TTL</param-name>
+        <param-value>3628800</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>org.omnifaces.FACES_VIEWS_SCAN_PATHS</param-name>
+        <param-value>/pages</param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>facesServlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>facesServlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>characterEncodingFilter</filter-name>
+        <filter-class>org.omnifaces.filter.CharacterEncodingFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>characterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>gzipResponseFilter</filter-name>
+        <filter-class>org.omnifaces.filter.GzipResponseFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>gzipResponseFilter</filter-name>
+        <servlet-name>facesServlet</servlet-name>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>noCacheFilter</filter-name>
+        <filter-class>org.omnifaces.filter.CacheControlFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>noCacheFilter</filter-name>
+        <servlet-name>facesServlet</servlet-name>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>facesExceptionFilter</filter-name>
+        <filter-class>org.omnifaces.filter.FacesExceptionFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>facesExceptionFilter</filter-name>
+        <servlet-name>facesServlet</servlet-name>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>resourceCacheFilter</filter-name>
+        <filter-class>org.omnifaces.filter.CacheControlFilter</filter-class>
+        <init-param>
+            <param-name>expires</param-name>
+            <param-value>6w</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>resourceCacheFilter</filter-name>
+        <url-pattern>/javax.faces.resource/*</url-pattern>
+    </filter-mapping>
+    
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>common pages</web-resource-name>
+            <url-pattern>/index</url-pattern>
+        </web-resource-collection>
+        
+        <auth-constraint>
+            <role-name>ADMINISTRATOR</role-name>
+            <role-name>SERVICE_PROVIDER</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>administrative pages</web-resource-name>
+            <url-pattern>/policy/*</url-pattern>
+            <url-pattern>/employee</url-pattern>
+        </web-resource-collection>
+        
+        <auth-constraint>
+            <role-name>ADMINISTRATOR</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>operational pages</web-resource-name>
+            <url-pattern>/activities/*</url-pattern>
+            <url-pattern>/client/*</url-pattern>
+            <url-pattern>/todo</url-pattern>
+        </web-resource-collection>
+        
+        <auth-constraint>
+            <role-name>SERVICE_PROVIDER</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+    
+    <welcome-file-list>
+        <welcome-file>index.jsf</welcome-file>
+    </welcome-file-list>
+
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/error.jsf</location>
+    </error-page>
+</web-app>

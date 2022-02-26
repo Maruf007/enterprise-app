@@ -1,0 +1,94 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+        xmlns:p="http://primefaces.org/ui">
+
+    <cc:interface>
+        <cc:attribute name="bean" required="true" />
+        <cc:attribute name="type" required="true" />
+        <cc:attribute name="header" required="true" />
+        <cc:attribute name="label" required="true" />
+        <cc:attribute name="model" required="true" />
+        <cc:attribute name="value" type="java.util.List" required="true" />
+    </cc:interface>
+
+    <cc:implementation>
+        <div class="p-col-12 p-md-12 p-lg-6">
+            <p:dataTable id="policyDataTable" value="#{cc.attrs.value}" var="policy"
+                         reflow="true" showGridlines="true">
+
+                <p:column width="5">
+                    <p:selectBooleanCheckbox value="#{policy.enabled}" disabled="true" />
+                </p:column>
+
+                <p:column headerText="#{cc.attrs.label}" width="90">
+                    <h:outputText value="#{policy.policyName}" />
+                </p:column>
+
+                <p:column width="5">
+                    <f:facet name="header">
+                        <p:commandButton process="@this" update="@parent:@parent:@parent:policyDialog"
+                                         styleClass="ui-button-success rounded-button" icon="pi pi-plus"
+                                         ignoreAutoUpdate="true" oncomplete="PF('#{cc.attrs.type}').show()"
+                                         actionListener="#{cc.attrs.bean.addPolicy(cc.attrs.type)}">
+
+                            <p:resetInput target="@parent:@parent:@parent:policyDialog" />
+                        </p:commandButton>
+                    </f:facet>
+
+                    <p:commandButton process="@this" styleClass="ui-button-warning rounded-button p-mr-2 p-mb-2"
+                                     update="@parent:@parent:@parent:policyDialog" icon="pi pi-pencil"
+                                     ignoreAutoUpdate="true" oncomplete="PF('#{cc.attrs.type}').show()">
+
+                        <f:setPropertyActionListener target="#{cc.attrs.model}" value="#{policy}" />
+                        <p:resetInput target="@parent:@parent:@parent:policyDialog" />
+                    </p:commandButton>
+
+                    <p:commandButton process="@this" update="policyDataTable" icon="pi pi-trash"
+                                     styleClass="ui-button-danger rounded-button p-mr-2 p-mb-2"
+                                     actionListener="#{cc.attrs.bean.delete(policy)}">
+
+                        <p:confirm type="popup" icon="pi pi-exclamation-triangle" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </div>
+
+        <p:dialog id="policyDialog" widgetVar="#{cc.attrs.type}" header="#{cc.attrs.header}" width="50%"
+                  showEffect="fade" dynamic="true" modal="true" closeOnEscape="true" responsive="true">
+
+            <div class="ui-fluid">
+                <div class="p-field p-grid">
+                    <p:outputLabel styleClass="p-col-12 p-mb-4 p-md-4 p-mb-md-0" value="#{cc.attrs.label}" />
+                    <div class="p-col-12 p-md-8">
+                        <p:inputText value="#{cc.attrs.model.policyName}" />
+                    </div>
+                </div>
+
+                <div class="p-field p-grid">
+                    <p:outputLabel value="#{lbl.enabled}" styleClass="p-col-12 p-mb-4 p-md-4 p-mb-md-0" />
+                    <div class="p-col-12 p-md-8">
+                        <p:selectBooleanCheckbox value="#{cc.attrs.model.enabled}" />
+                    </div>
+                </div>
+            </div>
+
+            <f:facet name="footer">
+                <p:commandButton value="#{btn.save}" partialSubmit="true" validateClient="true"
+                                 actionListener="#{cc.attrs.bean.save(cc.attrs.type)}"
+                                 process="policyDialog" update="@parent:policyDataTable"
+                                 rendered="#{cc.attrs.model.policyId eq null}" icon="pi pi-save" />
+
+                <p:commandButton value="#{btn.update}" partialSubmit="true" validateClient="true"
+                                 actionListener="#{cc.attrs.bean.update(cc.attrs.type)}"
+                                 process="policyDialog" update="@parent:policyDataTable"
+                                 rendered="#{cc.attrs.model.policyId ne null}" icon="pi pi-check-square" />
+
+                <p:commandButton value="#{btn.cancel}" process="@none" update="@none" icon="pi pi-times"
+                                 styleClass="ui-button-secondary" ignoreAutoUpdate="true"
+                                 onclick="PF('#{cc.attrs.type}').hide()" />
+            </f:facet>
+        </p:dialog>
+    </cc:implementation>
+</f:view>

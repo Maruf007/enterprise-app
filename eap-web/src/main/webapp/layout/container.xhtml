@@ -1,0 +1,58 @@
+<ui:composition template="/layout/abstract.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="container">
+        <p:menubar>
+            <p:menuitem value="#{scn.home}" url="#{faces.requestBaseURL}index.jsf" icon="pi pi-fw pi-home" />
+            <p:divider layout="vertical" />
+
+            <p:menuitem value="#{scn.policy}" url="#{faces.requestBaseURL}policy/config.jsf"
+                        icon="pi pi-fw pi-cog" />
+
+            <p:menuitem value="#{scn.employee}" url="#{faces.requestBaseURL}employee/list.jsf"
+                        icon="pi pi-fw pi-briefcase" />
+
+            <p:menuitem value="#{scn.client}" url="#{faces.requestBaseURL}client/list.jsf"
+                        icon="pi pi-fw pi-users" />
+
+            <p:menuitem value="#{scn.session}" url="#{faces.requestBaseURL}session/list.jsf"
+                        icon="pi pi-fw pi-book" />
+
+            <p:menuitem value="#{scn.todo}" url="#{faces.requestBaseURL}todo.jsf"
+                        icon="pi pi-fw pi-calendar" />
+
+            <p:divider layout="vertical" />
+            <p:submenu label="#{scn.user}" icon="pi pi-fw pi-user">
+                <p:menuitem value="#{scn.profile}" icon="pi pi-fw pi-user-edit" />
+                <p:menuitem value="#{scn.credential}" icon="pi pi-fw pi-key" />
+            </p:submenu>
+
+            <f:facet name="options">
+                <div class="ui-input-icon-left p-mr-2">
+                    <i class="pi pi-fw pi-search" />
+                    <p:inputText placeholder="#{scn.search}" />
+                </div>
+
+                <p:commandButton value="#{btn.logout}" action="#{logoutController.logout}"
+                                 process="@this" immediate="true" ignoreAutoUpdate="true"
+                                 icon="pi pi-fw pi-sign-out" styleClass="ui-button-info" />
+            </f:facet>
+        </p:menubar>
+
+        <p:spacer />
+        <p:panel header="#{screenName}">
+            <ui:insert name="content" />
+        </p:panel>
+
+        <p:confirmPopup global="true" message="#{tmp.confirmation}">
+            <p:commandButton value="#{btn.yes}" type="button" icon="pi pi-check"
+                             styleClass="ui-confirm-popup-yes" />
+
+            <p:commandButton value="#{btn.no}" type="button" icon="pi pi-times"
+                             styleClass="ui-confirm-popup-no ui-button-flat" />
+        </p:confirmPopup>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,43 @@
+<ui:composition template="/layout/abstract.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="container">
+        <div class="p-grid p-jc-center">
+            <div class="p-col-12 p-md-8 p-lg-4">
+                <p:spacer />
+
+                <p:panel id="credential" header="#{scn.authentication}">
+                    <div class="ui-fluid">
+                        <div class="p-field">
+                            <div class="ui-inputgroup">
+                                <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+                                <p:inputText value="#{authenticationController.phoneOrEmail}"
+                                             placeholder="#{lbl.phone} or #{lbl.email}" />
+                            </div>
+                        </div>
+
+                        <div class="p-field">
+                            <div class="ui-inputgroup">
+                                <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
+                                <p:password value="#{authenticationController.password}"
+                                            placeholder="#{lbl.password}" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <f:facet name="footer">
+                        <div class="ui-fluid">
+                            <div class="p-field">
+                                <p:commandButton value="#{btn.login}" action="#{authenticationController.login}"
+                                                 validateClient="true" ajax="false" icon="pi pi-sign-in" />
+                            </div>
+                        </div>
+                    </f:facet>
+                </p:panel>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,98 @@
+<ui:composition template="/layout/container.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:cc="http://xmlns.jcp.org/jsf/composite/component"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:param name="screenName" value="#{scn.policy}" />
+    <ui:define name="content">
+
+        <p:tabView dynamic="true" cache="true">
+            <p:tab title="#{scn.policy_task}">
+                <o:importConstants type="com.resiliencecc.api.constraint.TaskPolicyType"
+                                   var="TaskPolicyType" />
+
+                <div class="p-grid">
+                    <cc:policy bean="#{taskConfigurationController}" header="#{scn.policy_task}"
+                               label="#{lbl.task}" type="#{TaskPolicyType.TASK}"
+                               model="#{taskConfigurationController.taskPolicy}"
+                               value="#{taskConfigurationController.taskPolicies}" />
+
+                    <cc:policy bean="#{taskConfigurationController}" header="#{scn.policy_task}"
+                               label="#{lbl.status}" type="#{TaskPolicyType.STATUS}"
+                               model="#{taskConfigurationController.statusPolicy}"
+                               value="#{taskConfigurationController.statusPolicies}" />
+
+                    <cc:policy bean="#{taskConfigurationController}" header="#{scn.policy_task}"
+                               label="#{lbl.priority}" type="#{TaskPolicyType.PRIORITY}"
+                               model="#{taskConfigurationController.priorityPolicy}"
+                               value="#{taskConfigurationController.priorityPolicies}" />
+                </div>
+            </p:tab>
+
+            <p:tab title="#{scn.policy_client}">
+                <ui:include src="client.xhtml" />
+            </p:tab>
+
+            <p:tab title="#{scn.policy_general}">
+                <o:importConstants type="com.resiliencecc.api.constraint.GeneralPolicyType"
+                                   var="GeneralPolicyType" />
+
+                <div class="p-grid">
+                    <cc:policy bean="#{generalPolicyController}" header="#{scn.policy_general}"
+                               label="#{lbl.department}" type="#{GeneralPolicyType.DEPARTMENT}"
+                               model="#{generalPolicyController.departmentPolicy}"
+                               value="#{generalPolicyController.departmentPolicies}" />
+
+                    <cc:policy bean="#{generalPolicyController}" header="#{scn.policy_general}"
+                               label="#{lbl.employment}" type="#{GeneralPolicyType.EMPLOYMENT}"
+                               model="#{generalPolicyController.employmentPolicy}"
+                               value="#{generalPolicyController.employmentPolicies}" />
+
+                    <cc:policy bean="#{generalPolicyController}" header="#{scn.policy_general}"
+                               label="#{lbl.source}" type="#{GeneralPolicyType.SOURCE}"
+                               model="#{generalPolicyController.sourcePolicy}"
+                               value="#{generalPolicyController.sourcePolicies}" />
+                </div>
+            </p:tab>
+
+            <p:tab title="#{scn.policy_service}">
+                <ui:include src="service.xhtml" />
+            </p:tab>
+
+            <p:tab title="#{scn.policy_session}">
+                <o:importConstants type="com.resiliencecc.api.constraint.BookSessionPolicyType"
+                                   var="BookSessionPolicyType" />
+
+                <div class="p-grid">
+                    <cc:policy bean="#{bookSessionPolicyController}" header="#{scn.policy_session}"
+                               label="#{lbl.status}" type="#{BookSessionPolicyType.STATUS}"
+                               model="#{bookSessionPolicyController.statusSessionPolicy}"
+                               value="#{bookSessionPolicyController.statusSessionPolicies}" />
+
+                    <cc:policy bean="#{bookSessionPolicyController}" header="#{scn.policy_session}"
+                               label="#{lbl.format}" type="#{BookSessionPolicyType.FORMAT}"
+                               model="#{bookSessionPolicyController.formatSessionPolicy}"
+                               value="#{bookSessionPolicyController.formatSessionPolicies}" />
+                </div>
+            </p:tab>
+
+            <p:tab title="#{scn.policy_location}">
+                <ui:include src="location.xhtml" />
+            </p:tab>
+
+            <p:tab title="#{scn.policy_note}">
+                <ui:include src="note.xhtml" />
+            </p:tab>
+
+            <p:tab title="#{scn.policy_price}">
+                <ui:include src="price.xhtml" />
+            </p:tab>
+
+            <p:tab title="#{scn.policy_ui}">
+                <ui:include src="ui.xhtml" />
+            </p:tab>
+        </p:tabView>
+    </ui:define>
+</ui:composition>

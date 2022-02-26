@@ -1,0 +1,48 @@
+<faces-config version="2.3"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
+    
+    <lifecycle>
+        <phase-listener>com.resiliencecc.web.security.SessionTimeoutListener</phase-listener>
+    </lifecycle>
+    
+    <factory>
+        <exception-handler-factory>org.omnifaces.exceptionhandler.FullAjaxExceptionHandlerFactory</exception-handler-factory>
+    </factory>
+    
+    <converter>
+        <converter-for-class>java.lang.String</converter-for-class>
+        <converter-class>org.omnifaces.converter.TrimConverter</converter-class>
+    </converter>
+    
+    <application>
+        <action-listener>org.omnifaces.eventlistener.ResetInputAjaxActionListener</action-listener>
+        <resource-handler>org.omnifaces.resourcehandler.CombinedResourceHandler</resource-handler>
+        
+        <resource-bundle>
+            <base-name>i18n.template</base-name>
+            <var>tmp</var>
+        </resource-bundle>
+        
+        <resource-bundle>
+            <base-name>i18n.button</base-name>
+            <var>btn</var>
+        </resource-bundle>
+        
+        <resource-bundle>
+            <base-name>i18n.message</base-name>
+            <var>msg</var>
+        </resource-bundle>
+        
+        <resource-bundle>
+            <base-name>i18n.screen</base-name>
+            <var>scn</var>
+        </resource-bundle>
+        
+        <resource-bundle>
+            <base-name>i18n.label</base-name>
+            <var>lbl</var>
+        </resource-bundle>
+    </application>
+</faces-config>
